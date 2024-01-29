@@ -1,5 +1,5 @@
-import mongoose from "mongoose";
-import isEmail from "validator/lib/isEmail";
+import mongoose from 'mongoose';
+import isEmail from 'validator/lib/isEmail';
 
 const userSchema = new mongoose.Schema(
   {
@@ -33,16 +33,16 @@ const userSchema = new mongoose.Schema(
       minlength: [2, 'Минимальная длина 2 символа'],
       maxlength: [30, 'Максимальная длина 30 символов'],
     },
-    likes: [
-      {
+    //likes: [
+      //{
         // список понравившихся фильмов
         // описываем схему для одного элемента
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'movie',
-        required: true,
-        default: [],
-      },
-    ],
+        //type: mongoose.Schema.Types.ObjectId,
+        //ref: 'movie',
+        //required: true,
+        //default: [],
+      //},
+    //],
   },
   { versionKey: false, timestamps: true },
 );

@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { UrlRegEx } from '../utils/UrlRegEx';
+import { UrlRegEx } from '../utils/UrlRegEx.js';
 
 const movieSchema = new mongoose.Schema(
   {
@@ -76,8 +76,8 @@ const movieSchema = new mongoose.Schema(
         message: 'Дана некорректная ссылка',
       },
     },
-    // _id пользователя, который сохранил фильм
     owner: {
+      // _id пользователя, который сохранил фильм
       // ссылка на модель пользователя
       type: mongoose.Schema.Types.ObjectId,
       ref: 'user',
