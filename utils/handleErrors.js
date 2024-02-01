@@ -43,9 +43,9 @@ export default function handleErrors(err, req, res, next) {
     });
   }
 
-  //if (err.name === 'JsonWebTokenError') {
-    //return res.status(constants.HTTP_STATUS_UNAUTHORIZED).send({ message: 'С токеном что-то не так' });
-  //}
+  if (err.name === 'JsonWebTokenError') {
+    return res.status(constants.HTTP_STATUS_UNAUTHORIZED).send({ message: 'С токеном что-то не так' });
+  }
 
   res.status(constants.HTTP_STATUS_INTERNAL_SERVER_ERROR).send({
     message: 'Ошибка на стороне сервера',

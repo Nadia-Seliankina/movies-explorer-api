@@ -2,6 +2,7 @@ import { constants } from 'http2';
 /* eslint import/extensions: "off" */
 import Movie from '../models/Movie.js';
 import NotFoundError from '../errors/NotFoundError.js';
+import ForbiddenError from '../errors/ForbiddenError.js';
 
 /* eslint consistent-return: "off" */
 export const getMovies = async (req, res, next) => {
@@ -13,7 +14,6 @@ export const getMovies = async (req, res, next) => {
   }
 };
 
-// создаёт фильм с переданными в теле...
 export const createMovie = async (req, res, next) => {
   try {
     // мидлвэр auth добавляет в каждый запрос объект user.
@@ -56,8 +56,12 @@ export const createMovie = async (req, res, next) => {
 
 export const deleteMovie = async (req, res, next) => {
   try {
-    const { movieId } = req.params;
-    const movie = await Movie.findById(movieId).orFail(() => new NotFoundError('Карточка по указанному _id не найдена'));
+    const { BDmovieId } = req.params;
+    const movie = await Movie.findById(BDmovieId).orFail(() => new NotFoundError('Карточка по указанному _id не найдена'));
+
+    if (movie.owner.toString() !== req.user._id) {
+      throw new ForbiddenError('Недостаточно прав');
+    }
 
     await Movie.deleteOne(movie);
 

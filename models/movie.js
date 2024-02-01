@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+/* eslint import/extensions: "off" */
 import { UrlRegEx } from '../utils/UrlRegEx.js';
 
 const movieSchema = new mongoose.Schema(

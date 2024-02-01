@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema(
         value: true,
         message: 'Поле пароль является обязательным',
       },
+      minlength: [8, 'Минимальная длина 8 символов'],
       // при поиске сущности не будет включаться в результат поиска, не светить пароль
       select: false,
     },
@@ -33,16 +34,6 @@ const userSchema = new mongoose.Schema(
       minlength: [2, 'Минимальная длина 2 символа'],
       maxlength: [30, 'Максимальная длина 30 символов'],
     },
-    //likes: [
-      //{
-        // список понравившихся фильмов
-        // описываем схему для одного элемента
-        //type: mongoose.Schema.Types.ObjectId,
-        //ref: 'movie',
-        //required: true,
-        //default: [],
-      //},
-    //],
   },
   { versionKey: false, timestamps: true },
 );
