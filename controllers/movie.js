@@ -3,6 +3,7 @@ import { constants } from 'http2';
 import Movie from '../models/Movie.js';
 import NotFoundError from '../errors/NotFoundError.js';
 import ForbiddenError from '../errors/ForbiddenError.js';
+import { forbiddenMessage, noMuovieMessage } from '../utils/constants.js';
 
 /* eslint consistent-return: "off" */
 export const getMovies = async (req, res, next) => {
@@ -57,10 +58,10 @@ export const createMovie = async (req, res, next) => {
 export const deleteMovie = async (req, res, next) => {
   try {
     const { BDmovieId } = req.params;
-    const movie = await Movie.findById(BDmovieId).orFail(() => new NotFoundError('Карточка по указанному _id не найдена'));
+    const movie = await Movie.findById(BDmovieId).orFail(() => new NotFoundError(noMuovieMessage));
 
     if (movie.owner.toString() !== req.user._id) {
-      throw new ForbiddenError('Недостаточно прав');
+      throw new ForbiddenError(forbiddenMessage);
     }
 
     await Movie.deleteOne(movie);

@@ -5,16 +5,15 @@ import User from '../models/User.js';
 import NotFoundError from '../errors/NotFoundError.js';
 import UnauthorizedError from '../errors/UnauthorizedError.js';
 import generateToken from '../utils/jwt.js';
-// import ForbiddenError from '../errors/ForbiddenError.js';
+import { noUserMessage, unauthorizedMessage } from '../utils/constants.js';
 
-// добавить в Env
 const SALT_ROUNDS = 10;
 
 /* eslint consistent-return: "off" */
 export const getUserActive = async (req, res, next) => {
   try {
     const user = await User.findById(req.user._id).orFail(
-      () => new NotFoundError('Пользователь по указанному _id не найден'),
+      () => new NotFoundError(noUserMessage),
     );
 
     return res.status(constants.HTTP_STATUS_OK).send({
@@ -28,7 +27,6 @@ export const getUserActive = async (req, res, next) => {
 
 export const updateUserProfile = async (req, res, next) => {
   try {
-    // const { idUser } = req.params;
     const activUserId = req.user._id;
     const { name, email } = req.body; // получим из объекта запроса имя и описание пользователя
     const userProfile = await User.findByIdAndUpdate(
@@ -40,12 +38,8 @@ export const updateUserProfile = async (req, res, next) => {
         // данные будут валидированы перед изменением
       },
     ).orFail(
-      () => new NotFoundError('Пользователь по указанному _id не найден'),
+      () => new NotFoundError(noUserMessage),
     );
-
-    // if (activUserId !== idUser) {
-    // throw new ForbiddenError('Доступ на изменения запрещён');
-    // }
 
     return res.status(constants.HTTP_STATUS_OK).send({
       name: userProfile.name,
@@ -81,12 +75,12 @@ export const login = async (req, res, next) => {
     // поискать пользователя с полученной почтой в базе
     const userLogin = await User.findOne({ email })
       .select('+password')
-      .orFail(() => new UnauthorizedError('Неправильные почта или пароль'));
+      .orFail(() => new UnauthorizedError(unauthorizedMessage));
     // сравниваем переданный пароль и хеш из базы
     const matched = await bcrypt.compare(password, userLogin.password);
     // хеши не совпали — отклоняем промис
     if (!matched) {
-      throw new UnauthorizedError('Неправильные почта или пароль');
+      throw new UnauthorizedError(unauthorizedMessage);
     }
 
     // аутентификация успешна
@@ -94,10 +88,9 @@ export const login = async (req, res, next) => {
 
     // записываем JWT в httpOnly куку.
     res.cookie('bitfilmsToken', token, {
-      // maxAge: 86400000, // 1дн в миллисекундах
-      expires: new Date(Date.now() + 24 * 3600000), // cookie will be removed after 24 hours
+      maxAge: 3600000 * 24 * 7, // такая кука будет храниться 7 дней
       httpOnly: true, // когда кука отправится с бека, не будет считываться с JS c document cookie
-      simeSite: true,
+      simeSite: true, // браузер посылает куки, только если запрос сделан с того же домена
     });
 
     // return res.status(constants.HTTP_STATUS_OK).send({ token });
@@ -129,7 +122,7 @@ export const getUserById = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const user = await User.findById(userId).orFail(
-      () => new NotFoundError('Пользователь по указанному _id не найден'),
+      () => new NotFoundError(noUserMessage),
     );
 
     return res.status(constants.HTTP_STATUS_OK).send(user);

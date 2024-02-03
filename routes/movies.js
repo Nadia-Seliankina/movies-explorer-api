@@ -1,8 +1,7 @@
 import { Router } from 'express';
 /* eslint import/extensions: "off" */
 import { createMovie, deleteMovie, getMovies } from '../controllers/movie.js';
-import joiAddMovieValidator from '../middlewares/joiAddMovieValidator.js';
-import joiDeleteMovieValidator from '../middlewares/joiDeleteMovieValidator.js';
+import { joiAddMovieValidator, joiDeleteMovieValidator } from '../middlewares/joiValidator.js';
 
 const movieRouter = Router(); // создали роутер
 

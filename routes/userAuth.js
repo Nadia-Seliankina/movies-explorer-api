@@ -3,8 +3,7 @@ import { Router } from 'express';
 import {
   createUser, deleteJWT, login,
 } from '../controllers/users.js';
-import joiSignupValidator from '../middlewares/joiSignupValidator.js';
-import joiSigninValidator from '../middlewares/joiSigninValidator.js';
+import { joiSigninValidator, joiSignupValidator } from '../middlewares/joiValidator.js';
 
 const authRouter = Router(); // создали роутер
 

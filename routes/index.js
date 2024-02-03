@@ -7,7 +7,7 @@ import movieRouter from './movies.js';
 import authRouter from './userAuth.js';
 import auth from '../middlewares/auth.js';
 import NotFoundError from '../errors/NotFoundError.js';
-import joiHeadersValidator from '../middlewares/joiHeadersValidator.js';
+import { joiHeadersValidator } from '../middlewares/joiValidator.js';
 
 // const public_folder = path.join(__dirname, 'public');
 // const index_file = path.join(public_folder, 'index.html');

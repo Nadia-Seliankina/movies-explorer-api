@@ -3,8 +3,7 @@ import { Router } from 'express';
 import {
   getUserActive, getUserById, getUsers, updateUserProfile,
 } from '../controllers/users.js';
-import joiUpdateUserValidator from '../middlewares/joiUpdateUserValidator.js';
-import joiGetUserIdValidator from '../middlewares/joiGetUserIdValidator.js';
+import { joiGetUserIdValidator, joiUpdateUserValidator } from '../middlewares/joiValidator.js';
 
 const userRouter = Router(); // создали роутер
 
