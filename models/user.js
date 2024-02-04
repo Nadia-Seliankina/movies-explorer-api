@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import isEmail from 'validator/lib/isEmail';
+import isEmail from 'validator/lib/isEmail.js';
 /* eslint import/extensions: 'off' */
 import {
   emailError,
