@@ -1,5 +1,14 @@
 import mongoose from 'mongoose';
 import isEmail from 'validator/lib/isEmail';
+import {
+  emailError,
+  emailRequired,
+  maxlength30,
+  minlength2,
+  minlength8,
+  nameUserRequired,
+  passwordRequired,
+} from '../utils/constants';
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,20 +17,20 @@ const userSchema = new mongoose.Schema(
       unique: true,
       required: {
         value: true,
-        message: 'Поле email является обязательным',
+        message: emailRequired,
       },
       validate: {
         validator: (v) => isEmail(v),
-        message: 'Неправильный формат почты',
+        message: emailError,
       },
     },
     password: {
       type: String,
       required: {
         value: true,
-        message: 'Поле пароль является обязательным',
+        message: passwordRequired,
       },
-      minlength: [8, 'Минимальная длина 8 символов'],
+      minlength: [8, minlength8],
       // при поиске сущности не будет включаться в результат поиска, не светить пароль
       select: false,
     },
@@ -29,10 +38,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: {
         value: true,
-        message: 'Поле имя является обязательным',
+        message: nameUserRequired,
       },
-      minlength: [2, 'Минимальная длина 2 символа'],
-      maxlength: [30, 'Максимальная длина 30 символов'],
+      minlength: [2, minlength2],
+      maxlength: [30, maxlength30],
     },
   },
   { versionKey: false, timestamps: true },

@@ -1,6 +1,18 @@
 import mongoose from 'mongoose';
-/* eslint import/extensions: "off" */
-import { UrlRegEx } from '../utils/UrlRegEx.js';
+/* eslint import/extensions: 'off' */
+import UrlRegEx from '../utils/UrlRegEx.js';
+import {
+  URLerror,
+  countryRequired,
+  descriptionRequired,
+  directorRequired,
+  durationRequired,
+  linkRequired,
+  maxlength30,
+  minlength2,
+  nameRequired,
+  yearRequired,
+} from '../utils/constants.js';
 
 const movieSchema = new mongoose.Schema(
   {
@@ -8,73 +20,73 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: {
         value: true,
-        message: 'Поле страна является обязательным',
+        message: countryRequired,
       },
-      minlength: [2, 'Минимальная длина 2 символа'],
-      maxlength: [30, 'Максимальная длина 30 символов'],
+      minlength: [2, minlength2],
+      maxlength: [30, maxlength30],
     },
     director: {
       type: String,
       required: {
         value: true,
-        message: 'Поле режиссёр является обязательным',
+        message: directorRequired,
       },
-      minlength: [2, 'Минимальная длина 2 символа'],
-      maxlength: [30, 'Максимальная длина 30 символов'],
+      minlength: [2, minlength2],
+      maxlength: [30, maxlength30],
     },
     duration: {
       type: Number,
       required: {
         value: true,
-        message: 'Поле длительность фильма является обязательным',
+        message: durationRequired,
       },
     },
     year: {
       type: String,
       required: {
         value: true,
-        message: 'Поле год выпуска является обязательным',
+        message: yearRequired,
       },
     },
     description: {
       type: String,
       required: {
         value: true,
-        message: 'Поле описание фильма является обязательным',
+        message: descriptionRequired,
       },
-      minlength: [2, 'Минимальная длина 2 символа'],
+      minlength: [2, minlength2],
     },
     image: {
       type: String,
       required: {
         value: true,
-        message: 'Здесь должна быть ссылка',
+        message: linkRequired,
       },
       validate: {
         validator: (v) => UrlRegEx.test(v),
-        message: 'Дана некорректная ссылка',
+        message: URLerror,
       },
     },
     trailerLink: {
       type: String,
       required: {
         value: true,
-        message: 'Здесь должна быть ссылка',
+        message: linkRequired,
       },
       validate: {
         validator: (v) => UrlRegEx.test(v),
-        message: 'Дана некорректная ссылка',
+        message: URLerror,
       },
     },
     thumbnail: {
       type: String,
       required: {
         value: true,
-        message: 'Здесь должна быть ссылка',
+        message: linkRequired,
       },
       validate: {
         validator: (v) => UrlRegEx.test(v),
-        message: 'Дана некорректная ссылка',
+        message: URLerror,
       },
     },
     owner: {
@@ -93,14 +105,14 @@ const movieSchema = new mongoose.Schema(
       type: String,
       required: {
         value: true,
-        message: 'Поле название фильма является обязательным',
+        message: nameRequired,
       },
     },
     nameEN: {
       type: String,
       required: {
         value: true,
-        message: 'Поле название фильма является обязательным',
+        message: nameRequired,
       },
     },
   },

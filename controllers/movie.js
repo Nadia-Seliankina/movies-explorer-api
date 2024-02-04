@@ -1,6 +1,6 @@
 import { constants } from 'http2';
 /* eslint import/extensions: "off" */
-import Movie from '../models/Movie.js';
+import Movie from '../models/movie.js';
 import NotFoundError from '../errors/NotFoundError.js';
 import ForbiddenError from '../errors/ForbiddenError.js';
 import { forbiddenMessage, noMuovieMessage } from '../utils/constants.js';

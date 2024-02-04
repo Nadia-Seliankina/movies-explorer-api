@@ -1,4 +1,16 @@
-# movies-explorer-api
+## movies-explorer-api
+
+Адрес репозитория: https://github.com/Nadia-Seliankina/movies-explorer-api/tree/level-1
+
+## Ссылки на проект
+
+IP-адрес 158.160.140.119
+
+//Backend https://api.mesto.seliankina.nomoredomainsmonster.ru/
+
+**Описание**
+
+* Поисковик фильмов с возможностью их сохранения в избранные пользователя.
 
 **Технологии**
 * Node.js;
