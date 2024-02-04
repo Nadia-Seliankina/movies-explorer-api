@@ -13,7 +13,7 @@ import helmet from 'helmet';
 import router from './routes/index.js'; // импортируем роутер
 import handleErrors from './middlewares/handleErrors.js';
 import limiter from './middlewares/limiter.js';
-import { URLconf } from './utils/config.js';
+import { URLconf } from './config.js';
 import { requestLogger, errorLogger } from './middlewares/logger.js';
 
 dotenv.config(); // подключение переменных окружения

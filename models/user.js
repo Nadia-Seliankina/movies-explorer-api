@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import isEmail from 'validator/lib/isEmail';
+/* eslint import/extensions: 'off' */
 import {
   emailError,
   emailRequired,
@@ -8,7 +9,7 @@ import {
   minlength8,
   nameUserRequired,
   passwordRequired,
-} from '../utils/constants';
+} from '../utils/constants.js';
 
 const userSchema = new mongoose.Schema(
   {

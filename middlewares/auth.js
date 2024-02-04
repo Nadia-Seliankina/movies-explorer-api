@@ -2,7 +2,7 @@
 import jwt from 'jsonwebtoken';
 /* eslint import/extensions: "off" */
 import UnauthorizedError from '../errors/UnauthorizedError.js';
-import { JWTconf } from '../utils/config.js';
+import { JWTconf } from '../config.js';
 import { unauthorizedMessage } from '../utils/constants.js';
 
 export default function (req, res, next) {

@@ -1,5 +1,6 @@
 import { celebrate, Joi } from 'celebrate';
-import UrlRegEx from '../utils/UrlRegEx';
+/* eslint import/extensions: "off" */
+import UrlRegEx from '../utils/UrlRegEx.js';
 
 export const joiAddMovieValidator = (req, res, next) => {
   celebrate({

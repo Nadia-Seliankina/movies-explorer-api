@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { JWTconf } from './config';
+import { JWTconf } from '../config.js';
 /* eslint import/extensions: "off" */
 
 export default function generateToken(payload) {
