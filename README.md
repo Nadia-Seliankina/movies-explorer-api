@@ -4,9 +4,9 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.140.119
+IP-адрес 158.160.136.13
 
-//Backend https://api.mesto.seliankina.nomoredomainsmonster.ru/
+//Backend https://api.movie.seliankina.nomoredomainswork.ru/
 
 **Описание**
 
@@ -54,3 +54,4 @@ IP-адрес 158.160.140.119
 
 * метод findUserByCredentials в модели юзера;
 * автоматизированное тестирование;
+* CORS;

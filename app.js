@@ -30,7 +30,17 @@ mongoose.connect(URLconf);
 app.use(requestLogger); // подключаем логгер запросов до всех обработчиков роутов
 
 // чтобы не было ошибок когда с фронта тестировать бэк.
-app.use(cors()); // открытый API, открыт любому домену
+app.use(
+  cors({
+    origin: [
+      'https://movie.seliankina.nomoredomainswork.ru',
+      'http://movie.seliankina.nomoredomainswork.ru',
+      'http://localhost:3000',
+    ],
+    credentials: true,
+    maxAge: 30,
+  }),
+);
 
 // подключаем rate-limiter
 app.use(limiter);
