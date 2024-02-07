@@ -4,10 +4,12 @@ import bcrypt from 'bcrypt';
 import User from '../models/user.js';
 import NotFoundError from '../errors/NotFoundError.js';
 import UnauthorizedError from '../errors/UnauthorizedError.js';
+import ConflictError from '../errors/ConflictError.js';
 import generateToken from '../utils/jwt.js';
-import { noUserMessage, unauthorizedMessage } from '../utils/constants.js';
+import { dublicateUserMessage, noUserMessage, unauthorizedMessage } from '../utils/constants.js';
 
 const SALT_ROUNDS = 10;
+const MONGO_DUBLICATE_ERROR_CODE = 11000;
 
 /* eslint consistent-return: "off" */
 export const getUserActive = async (req, res, next) => {
@@ -46,6 +48,10 @@ export const updateUserProfile = async (req, res, next) => {
       email: userProfile.email,
     });
   } catch (error) {
+    if (error.code === MONGO_DUBLICATE_ERROR_CODE) {
+      next(new ConflictError(dublicateUserMessage));
+    }
+
     next(error);
   }
 };
@@ -65,6 +71,10 @@ export const createUser = async (req, res, next) => {
       email: newUser.email,
     });
   } catch (error) {
+    if (error.code === MONGO_DUBLICATE_ERROR_CODE) {
+      next(new ConflictError(dublicateUserMessage));
+    }
+
     next(error);
   }
 };
@@ -103,29 +113,6 @@ export const login = async (req, res, next) => {
 export const deleteJWT = (req, res, next) => {
   try {
     res.clearCookie('bitfilmsToken').send('cookie cleared');
-  } catch (error) {
-    next(error);
-  }
-};
-
-// дополнительный функционал
-export const getUsers = async (req, res, next) => {
-  try {
-    const users = await User.find({});
-    return res.status(constants.HTTP_STATUS_OK).send(users);
-  } catch (error) {
-    next(error);
-  }
-};
-
-export const getUserById = async (req, res, next) => {
-  try {
-    const { userId } = req.params;
-    const user = await User.findById(userId).orFail(
-      () => new NotFoundError(noUserMessage),
-    );
-
-    return res.status(constants.HTTP_STATUS_OK).send(user);
   } catch (error) {
     next(error);
   }

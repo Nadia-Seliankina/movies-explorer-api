@@ -8,8 +8,6 @@ import {
   directorRequired,
   durationRequired,
   linkRequired,
-  maxlength30,
-  minlength2,
   nameRequired,
   yearRequired,
 } from '../utils/constants.js';
@@ -22,8 +20,6 @@ const movieSchema = new mongoose.Schema(
         value: true,
         message: countryRequired,
       },
-      minlength: [2, minlength2],
-      maxlength: [30, maxlength30],
     },
     director: {
       type: String,
@@ -31,8 +27,6 @@ const movieSchema = new mongoose.Schema(
         value: true,
         message: directorRequired,
       },
-      minlength: [2, minlength2],
-      maxlength: [30, maxlength30],
     },
     duration: {
       type: Number,
@@ -54,7 +48,6 @@ const movieSchema = new mongoose.Schema(
         value: true,
         message: descriptionRequired,
       },
-      minlength: [2, minlength2],
     },
     image: {
       type: String,

@@ -77,6 +77,7 @@ app.use(errors()); // обработчик ошибок celebrate
 app.use(handleErrors); // централизованная обработка ошибок
 
 // будем принимать сообщения с PORT
+/* eslint no-console: "off" */
 app.listen(PORT, (err) => {
   // Если всё работает, консоль покажет, какой порт приложение слушает
   console.log(`App listening on port ${PORT}`);

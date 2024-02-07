@@ -5,7 +5,7 @@ import UnauthorizedError from '../errors/UnauthorizedError.js';
 import { JWTconf } from '../config.js';
 import { unauthorizedMessage } from '../utils/constants.js';
 
-export default function (req, res, next) {
+export default function aufh(req, res, next) {
   let payload;
   try {
     // достаём авторизационный заголовок
