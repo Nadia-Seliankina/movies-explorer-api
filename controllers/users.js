@@ -66,9 +66,12 @@ export const createUser = async (req, res, next) => {
 
     const newUser = await User.create({ name, email, password: hash }); // записываем хеш в базу
 
+    const token = generateToken({ _id: newUser._id });
+
     return res.status(constants.HTTP_STATUS_OK).send({
       name: newUser.name,
       email: newUser.email,
+      token,
     });
   } catch (error) {
     if (error.code === MONGO_DUBLICATE_ERROR_CODE) {
@@ -97,14 +100,14 @@ export const login = async (req, res, next) => {
     const token = generateToken({ _id: userLogin._id });
 
     // записываем JWT в httpOnly куку.
-    res.cookie('bitfilmsToken', token, {
-      maxAge: 3600000 * 24 * 7, // такая кука будет храниться 7 дней
-      httpOnly: true, // когда кука отправится с бека, не будет считываться с JS c document cookie
-      simeSite: true, // браузер посылает куки, только если запрос сделан с того же домена
-    });
+    // res.cookie('bitfilmsToken', token, {
+    // maxAge: 3600000 * 24 * 7, // такая кука будет храниться 7 дней
+    // httpOnly: true, // когда кука отправится с бека, не будет считываться с JS c document cookie
+    // //simeSite: true, // браузер посылает куки, только если запрос сделан с того же домена
+    // });
 
-    // return res.status(constants.HTTP_STATUS_OK).send({ token });
-    return res.status(constants.HTTP_STATUS_OK).send({ _id: userLogin._id });
+    return res.status(constants.HTTP_STATUS_OK).send({ token });
+    // return res.status(constants.HTTP_STATUS_OK).send({ _id: userLogin._id });
   } catch (error) {
     next(error);
   }

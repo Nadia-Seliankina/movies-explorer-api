@@ -8,9 +8,6 @@ import authRouter from './userAuth.js';
 import auth from '../middlewares/auth.js';
 import NotFoundError from '../errors/NotFoundError.js';
 
-// const public_folder = path.join(__dirname, 'public');
-// const index_file = path.join(public_folder, 'index.html');
-
 const router = Router(); // создали роутер
 
 router.use('/', authRouter);
