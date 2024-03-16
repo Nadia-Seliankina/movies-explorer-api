@@ -9,8 +9,8 @@ export default function aufh(req, res, next) {
   let payload;
   try {
     // достаём авторизационный заголовок
-    // const token = req.headers.authorization;
-    const token = req.cookies.bitfilmsToken;
+    const token = req.headers.authorization;
+    // const token = req.cookies.bitfilmsToken;
 
     // проверка токена
     if (!token) {

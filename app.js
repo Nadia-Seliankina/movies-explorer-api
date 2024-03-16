@@ -19,7 +19,7 @@ import { requestLogger, errorLogger } from './middlewares/logger.js';
 dotenv.config(); // подключение переменных окружения
 
 // const { PORT = 3000, MONGO_URL = 'mongodb://127.0.0.1:27017/bitfilmsdb' } = process.env;
-const { PORT = 3000 } = process.env;
+const { PORT = 3001 } = process.env;
 
 const app = express(); // создаём приложение методом express
 
@@ -38,7 +38,7 @@ app.use(
       'http://localhost:3000',
     ],
     credentials: true,
-    maxAge: 30,
+    maxAge: 3600000 * 24 * 7,
   }),
 );
 
